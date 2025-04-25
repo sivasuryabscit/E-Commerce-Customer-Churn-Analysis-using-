@@ -242,9 +242,18 @@ INSERT INTO customer_returns (ReturnID, CustomerID, ReturnDate, RefundAmount) VA
 (1008, 54838, '2023-04-30', 1990);
 
 -- b) Display return details along with customer details of churned customers who complained
+SELECT
+    cr.ReturnID,
+    cr.ReturnDate,
+    cr.RefundAmount,
+    cc.*
+FROM
+    customer_returns cr
+JOIN
+    customer_churn cc ON cr.CustomerID = cc.CustomerID
+WHERE
+    cc.ChurnStatus = 'Churned' AND cc.ComplaintReceived = 'Yes';
 
-
-SHOW WARNINGS;
 
 SELECT*FROM customer_churn;
 
